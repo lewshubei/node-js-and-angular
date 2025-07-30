@@ -13,7 +13,7 @@ db.sequelize
     console.log("Failed to sync db: " + err.message);
   });
 var corsOptions = {
-  origin: "http://localhost:8080",
+  origin: ["http://localhost:8080", "http://localhost:4200"],
 };
 
 app.use(cors(corsOptions));
@@ -28,6 +28,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome" });
 });
+
+// include tutorial routes
+require("./app/routes/tutorial.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
